@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEBI Coffee Ecosystem | 咖啡数字化生态系统 × Medialink</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* x.com风格变量 */
+        :root {
+            --x-bg: #000000;
+            --x-card: #16181C;
+            --x-border: #2F3336;
+            --x-text: #E7E9EA;
+            --x-text-secondary: #71767B;
+            --x-accent: #1D9BF0;
+            --x-success: #00BA7C;
+            --x-warning: #FFD400;
+            --x-error: #F4212E;
+            --coffee-primary: #8B4513;
+            --coffee-secondary: #D2691E;
+            --medialink-purple: #8A2BE2;
+            --gradient-primary: linear-gradient(135deg, #1D9BF0, #8B4513);
+            --gradient-secondary: linear-gradient(135deg, #8B4513, #00BA7C);
+            --gradient-medialink: linear-gradient(135deg, #8A2BE2, #1D9BF0);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--x-bg);
+            color: var(--x-text);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        
+        /* x.com顶部导航 */
+        .x-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--x-border);
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .x-logo {
+            color: var(--x-text);
+            font-size: 28px;
+        }
+        
+        .brand-text {
+            font-size: 20px;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .x-nav {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .nav-item {
+            color: var(--x-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.2s;
+        }
+        
+        .nav-item:hover {
+            color: var(--x-accent);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -13px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .x-button {
+            background-color: var(--x-accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .x-button:hover {
+            background-color: #1a8cd8;
+            transform: scale(1.05);
+        }
+        
+        .x-button-secondary {
+            background-color: transparent;
+            color: var(--x-text);
+            border: 1px solid var(--x-border);
+        }
+        
+        .x-button-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--x-text);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* 主内容区 */
+        .x-main {
+            max-width: 1280px;
+            margin: 80px auto 0;
+            padding: 20px;
+        }
+        
+        /* x.com卡片样式 */
+        .x-card {
+            background-color: var(--x-card);
+            border-radius: 16px;
+            border: 1px solid var(--x-border);
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .x-card:hover {
+            border-color: var(--x-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(29, 155, 240, 0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .card-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            margin-right: 12px;
+        }
+        
+        .card-user {
+            flex: 1;
+        }
+        
+        .card-name {
+            font-weight: 700;
+            font-size: 16px;
+        }
+        
+        .card-handle {
+            color: var(--x-text-secondary);
+            font-size: 14px;
+        }
+        
+        .card-content {
+            margin-bottom: 20px;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--x-text);
+        }
+        
+        .card-body {
+            color: var(--x-text-secondary);
+            line-height: 1.6;
+        }
+        
+        .card-stats {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid var(--x-border);
+            color: var(--x-text-secondary);
+            font-size: 14px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .stat-item:hover {
+            color: var(--x-accent);
+        }
+        
+        /* 英雄区域 */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        .hero-content {
+            padding-right: 32px;
+        }
+        
+        .hero-title {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--x-text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        
+        .hero-badge {
+            padding: 8px 16px;
+            background: rgba(29, 155, 240, 0.1);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--x-accent);
+            border: 1px solid rgba(29, 155, 240, 0.2);
+        }
+        
+        .hero-visual {
+            position: relative;
+            height: 400px;
+        }
+        
+        .ecosystem-viz {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(22, 24, 28, 0.8), rgba(29, 155, 240, 0.1));
+            border-radius: 24px;
+            border: 1px solid var(--x-border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .center-node {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: center;
+            z-index: 2;
+            box-shadow: 0 0 40px rgba(29, 155, 240, 0.3);
+            animation: pulse 4s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+        
+        .viz-node {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: var(--x-card);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--x-border);
+            transition: all 0.3s;
+            cursor: pointer;
+            z-index: 1;
+        }
+        
+        .viz-node:hover {
+            border-color: var(--x-accent);
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        
+        .node-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--x-accent);
+        }
+        
+        .node-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-align: center;
+            color: var(--x-text);
+        }
+        
+        .node-connection {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, var(--x-accent), transparent);
+            transform-origin: left center;
+            z-index: 0;
+        }
+        
+        /* 生态系统全景图部分 */
+        .ecosystem-section {
+            margin: 80px 0;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--x-text);
+        }
+        
+        .section-subtitle {
+            color: var(--x-text-secondary);
+            font-size: 18px;
+            max-width: 600px;
+        }
+        
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 32px;
+        }
+        
+        .module-card {
+            background: var(--x-card);
+            border-radius: 16px;
+            border: 1px solid var(--x-border);
+            padding: 24px;
+            transition: all 0.3s;
+        }
+        
+        .module-card:hover {
+            border-color: var(--x-accent);
+            transform: translateY(-4px);
+        }
+        
+        .module-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: white;
+        }
+        
+        .module-1 .module-icon { background-color: var(--x-accent); }
+        .module-2 .module-icon { background-color: var(--coffee-primary); }
+        .module-3 .module-icon { background-color: var(--x-success); }
+        .module-4 .module-icon { background-color: var(--x-warning); }
+        .module-5 .module-icon { background-color: #8A2BE2; }
+        .module-6 .module-icon { background-color: var(--x-error); }
+        
+        .module-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--x-text);
+        }
+        
+        .module-desc {
+            color: var(--x-text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        
+        .module-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .module-tag {
+            padding: 4px 12px;
+            background: rgba(29, 155, 240, 0.1);
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--x-accent);
+        }
+        
+        /* 商业模式详解部分 */
+        .business-section {
+            margin: 80px 0;
+        }
+        
+        .business-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+        
+        .timeline-track {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-secondary);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .timeline-content {
+            width: 45%;
+            background: var(--x-card);
+            border-radius: 16px;
+            border: 1px solid var(--x-border);
+            padding: 24px;
+            position: relative;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            border: 4px solid var(--x-bg);
+            z-index: 1;
+        }
+        
+        .phase-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--x-accent);
+        }
+        
+        .phase-year {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--x-bg);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--x-border);
+            font-weight: 700;
+            color: var(--x-text);
+            font-size: 14px;
+        }
+        
+        .phase-features {
+            list-style: none;
+            margin-top: 16px;
+        }
+        
+        .phase-features li {
+            color: var(--x-text-secondary);
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .phase-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--x-success);
+            font-weight: bold;
+        }
+        
+        /* 收入模型部分 */
+        .revenue-section {
+            margin: 80px 0;
+        }
+        
+        .revenue-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+        
+        .revenue-card {
+            background: var(--x-card);
+            border-radius: 16px;
+            border: 1px solid var(--x-border);
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .revenue-card:hover {
+            border-color: var(--x-success);
+            transform: translateY(-4px);
+        }
+        
+        .revenue-phase {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--x-success);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .revenue-amount {
+            font-size: 40px;
+            font-weight: 900;
+            margin: 20px 0;
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .revenue-features {
+            text-align: left;
+            margin-top: 24px;
+        }
+        
+        .revenue-features li {
+            color: var(--x-text-secondary);
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+        }
+        
+        .revenue-features li:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--x-accent);
+        }
+        
+        /* Medialink合作部分 */
+        .medialink-section {
+            margin: 80px 0;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(29, 155, 240, 0.1));
+            border-radius: 24px;
+            padding: 48px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .medialink-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.05) 0%, transparent 70%);
+            z-index: 0;
+        }
+        
+        .medialink-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .medialink-logo {
+            font-size: 48px;
+            color: var(--medialink-purple);
+        }
+        
+        .medialink-title {
+            font-size: 36px;
+            font-weight: 800;
+            background: var(--gradient-medialink);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .medialink-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .medialink-card {
+            background: rgba(22, 24, 28, 0.8);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .medialink-card:hover {
+            border-color: var(--medialink-purple);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(138, 43, 226, 0.2);
+        }
+        
+        .medialink-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--medialink-purple);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .medialink-card-desc {
+            color: var(--x-text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* 联系部分 */
+        .contact-section {
+            margin: 80px 0;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+        
+        .contact-card {
+            background: var(--x-card);
+            border-radius: 16px;
+            border: 1px solid var(--x-border);
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .contact-card:hover {
+            border-color: var(--x-accent);
+            transform: translateY(-4px);
+        }
+        
+        .contact-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 20px;
+            color: white;
+        }
+        
+        .contact-whatsapp .contact-icon { background-color: #25D366; }
+        .contact-wechat .contact-icon { background-color: #07C160; }
+        .contact-email .contact-icon { background-color: var(--x-accent); }
+        
+        .contact-method {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--x-text);
+        }
+        
+        .contact-detail {
+            font-size: 16px;
+            color: var(--x-text);
+            margin-bottom: 20px;
+            word-break: break-all;
+        }
+        
+        .copy-button {
+            background: transparent;
+            color: var(--x-accent);
+            border: 1px solid var(--x-accent);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .copy-button:hover {
+            background: rgba(29, 155, 240, 0.1);
+        }
+        
+        /* Medialink IP共享世界按钮 - 右下角浮动按钮 */
+        .medialink-float-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .float-btn-main {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--gradient-medialink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.4);
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .float-btn-main:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 12px 40px rgba(138, 43, 226, 0.6);
+        }
+        
+        .float-btn-tooltip {
+            background: var(--x-card);
+            border: 1px solid var(--medialink-purple);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            width: 280px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+        
+        .float-btn-tooltip.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .tooltip-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--medialink-purple);
+            margin-bottom: 6px;
+        }
+        
+        .tooltip-desc {
+            font-size: 12px;
+            color: var(--x-text-secondary);
+            line-height: 1.4;
+        }
+        
+        /* Medialink合作模态框 */
+        .medialink-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .medialink-modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--x-card);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--x-border);
+            position: relative;
+        }
+        
+        .modal-header {
+            padding: 32px 32px 20px;
+            border-bottom: 1px solid var(--x-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 28px;
+            font-weight: 800;
+            background: var(--gradient-medialink);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--x-text-secondary);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .modal-close:hover {
+            color: var(--x-text);
+        }
+        
+        .modal-body {
+            padding: 32px;
+        }
+        
+        .modal-section {
+            margin-bottom: 32px;
+        }
+        
+        .modal-section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--x-text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .modal-section-content {
+            color: var(--x-text-secondary);
+            line-height: 1.6;
+        }
+        
+        .synergy-list {
+            list-style: none;
+        }
+        
+        .synergy-list li {
+            margin-bottom: 12px;
+            padding-left: 28px;
+            position: relative;
+        }
+        
+        .synergy-list li:before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--medialink-purple);
+            font-size: 18px;
+        }
+        
+        /* 页脚 */
+        .x-footer {
+            background: var(--x-card);
+            border-top: 1px solid var(--x-border);
+            padding: 48px 0 24px;
+            margin-top: 80px;
+        }
+        
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--x-text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--x-accent);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--x-text-secondary);
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background: var(--x-accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .footer-copyright {
+            text-align: center;
+            color: var(--x-text-secondary);
+            font-size: 14px;
+            padding-top: 24px;
+            border-top: 1px solid var(--x-border);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 48px;
+            }
+            
+            .hero-section {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .x-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--x-bg);
+                flex-direction: column;
+                padding: 20px;
+                border-bottom: 1px solid var(--x-border);
+            }
+            
+            .x-nav.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .timeline-track {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 60px;
+            }
+            
+            .timeline-content {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .timeline-marker {
+                left: 30px;
+            }
+            
+            .phase-year {
+                position: relative;
+                top: 0;
+                left: 0;
+                transform: none;
+                margin-bottom: 20px;
+            }
+            
+            .medialink-section {
+                padding: 32px 24px;
+            }
+            
+            .float-btn-tooltip {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .x-button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .x-card, .module-card, .revenue-card, .contact-card {
+                padding: 20px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .medialink-float-btn {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .float-btn-main {
+                width: 56px;
+                height: 56px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- x.com风格顶部导航 -->
+    <header class="x-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="x-logo">
+                    <i class="fab fa-x-twitter"></i>
+                </div>
+                <div class="brand-text">JEBI Coffee Ecosystem</div>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="x-nav" id="xNav">
+                <a href="#home" class="nav-item active">首页</a>
+                <a href="#ecosystem" class="nav-item">生态系统</a>
+                <a href="#business" class="nav-item">商业模式</a>
+                <a href="#medialink" class="nav-item">Medialink合作</a>
+                <a href="#contact" class="nav-item">联系我们</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="x-button x-button-secondary" id="demoBtn">观看演示</button>
+                <button class="x-button" id="contactBtn">立即联系</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Medialink IP共享世界按钮 -->
+    <div class="medialink-float-btn" id="floatBtn">
+        <div class="float-btn-tooltip" id="floatTooltip">
+            <div class="tooltip-title">连接 Medialink IP共享世界</div>
+            <div class="tooltip-desc">探索与香港上市公司Medialink Group Ltd (HK2230)的战略合作机遇，共同打造咖啡数字化IP生态。</div>
+        </div>
+        <button class="float-btn-main" id="floatBtnMain">
+            <i class="fas fa-share-alt"></i>
+        </button>
+    </div>
+    
+    <!-- Medialink合作模态框 -->
+    <div class="medialink-modal" id="medialinkModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">连接 Medialink IP共享世界</h2>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title">
+                        <i class="fas fa-handshake"></i>
+                        战略合作价值
+                    </h3>
+                    <div class="modal-section-content">
+                        <p>Medialink Group Ltd (HK2230) 作为香港主板上市的媒体内容发行及IP运营专家，与JEBI咖啡数字化生态系统的结合将创造独特的协同效应：</p>
+                        
+                        <ul class="synergy-list">
+                            <li><strong>IP商业化扩展</strong> - 将咖啡烘焙曲线图IP转化为可传播的媒体内容（纪录片、教程、品牌故事）</li>
+                            <li><strong>全球发行网络</strong> - 借助Medialink的全球媒体网络，快速推广咖啡数字化概念</li>
+                            <li><strong>品牌授权协同</strong> - 将咖啡曲线IP与Medialink旗下动漫/影视IP跨界融合</li>
+                            <li><strong>资本市场赋能</strong> - 上市公司的平台为技术创新提供资本和信誉背书</li>
+                            <li><strong>RWA资产发行</strong> - 共同探索咖啡数字资产作为现实世界资产(RWA)的发行与交易</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-section-title">
+                        <i class="fas fa-chart-line"></i>
+                        商业协同效应
+                    </h3>
+                    <div class="modal-section-content">
+                        <div class="medialink-grid" style="margin-top: 20px;">
+                            <div class="medialink-card">
+                                <h4 class="medialink-card-title">
+                                    <i class="fas fa-film"></i>
+                                    IP内容化
+                                </h4>
+                                <p class="medialink-card-desc">
+                                    将顶级咖啡烘焙曲线的创造过程拍摄为系列短片《大师的曲线》，在Medialink全球网络发行，打造咖啡科技IP品牌。
+                                </p>
+                            </div>
+                            
+                            <div class="medialink-card">
+                                <h4 class="medialink-card-title">
+                                    <i class="fas fa-gem"></i>
+                                    IP授权联动
+                                </h4>
+                                <p class="medialink-card-desc">
+                                    将Medialink旗下动漫/电影IP与咖啡曲线结合，发行联名NFT与实体咖啡产品，创造跨界消费体验。
+                                </p>
+                            </div>
+                            
+                            <div class="medialink-card">
+                                <h4 class="medialink-card-title">
+                                    <i class="fas fa-store"></i>
+                                    共创品牌
+                                </h4>
+                                <p class="medialink-card-desc">
+                                    联合推出"Curve Collection"精选咖啡订阅品牌，用内容讲故事，用曲线做品质背书，打造高端咖啡消费品牌。
+                                </p>
+                            </div>
+                            
+                            <div class="medialink-card">
+                                <h4 class="medialink-card-title">
+                                    <i class="fas fa-coins"></i>
+                                    投资与孵化
+                                </h4>
+                                <p class="medialink-card-desc">
+                                    Medialink作为战略投资者与生态共建方，共享咖啡数字化资产化阶段的增长红利，共同探索Web3.0创新商业模式。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-section-title">
+                        <i class="fas fa-rocket"></i>
+                        合作路线图
+                    </h3>
+                    <div class="modal-section-content">
+                        <div style="background: rgba(138, 43, 226, 0.1); border-radius: 12px; padding: 20px; margin-top: 16px;">
+                            <p><strong>第一阶段（3-6个月）</strong>：内容合作试点 - 联合制作咖啡数字化概念短片，测试市场反应</p>
+                            <p><strong>第二阶段（6-12个月）</strong>：IP联合开发 - 共同开发首个咖啡曲线IP授权产品系列</p>
+                            <p><strong>第三阶段（12-24个月）</strong>：生态共建 - 成立合资公司，共同运营咖啡数字资产生态平台</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-section-title">
+                        <i class="fas fa-comments"></i>
+                        立即开启对话
+                    </h3>
+                    <div class="modal-section-content">
+                        <p>我们已准备详细的合作提案，期待与Medialink团队探讨咖啡数字化生态系统的合作机遇。</p>
+                        <div style="display: flex; gap: 16px; margin-top: 24px;">
+                            <button class="x-button" id="modalContactBtn" style="background: var(--gradient-medialink);">
+                                <i class="fas fa-envelope"></i> 发送合作提案
+                            </button>
+                            <button class="x-button x-button-secondary" id="modalCloseBtn">
+                                稍后联系
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 主内容区 -->
+    <main class="x-main">
+        <!-- 英雄区域 -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">咖啡数字化生态系统</h1>
+                <p class="hero-subtitle">
+                    将区块链、人工智能和物联网技术融入咖啡产业链，构建完整的数字化价值网络。
+                    从一颗咖啡豆到一杯完美咖啡，重新定义咖啡产业的未来。
+                </p>
+                
+                <div class="hero-badges">
+                    <span class="hero-badge">Web3.0</span>
+                    <span class="hero-badge">人工智能</span>
+                    <span class="hero-badge">物联网</span>
+                    <span class="hero-badge">数字资产</span>
+                    <span class="hero-badge">供应链金融</span>
+                    <span class="hero-badge" style="background: rgba(138, 43, 226, 0.1); color: var(--medialink-purple); border-color: rgba(138, 43, 226, 0.3);">
+                        <i class="fas fa-star"></i> Medialink Partner
+                    </span>
+                </div>
+                
+                <div class="hero-actions">
+                    <button class="x-button" style="margin-right: 16px;" id="joinBtn">
+                        <i class="fas fa-rocket"></i> 加入生态系统
+                    </button>
+                    <button class="x-button x-button-secondary" id="learnMoreBtn">
+                        <i class="fas fa-book"></i> 了解更多
+                    </button>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="ecosystem-viz" id="ecosystemViz">
+                    <!-- 可视化节点将通过JS动态生成 -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- 生态系统全景图 -->
+        <section id="ecosystem" class="ecosystem-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">生态系统全景图</h2>
+                    <p class="section-subtitle">
+                        六大核心模块相互连接，形成完整的数据、资产、设备和服务闭环
+                    </p>
+                </div>
+            </div>
+            
+            <div class="x-card">
+                <div class="card-header">
+                    <div class="card-avatar">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <div class="card-user">
+                        <div class="card-name">JEBI Coffee Ecosystem</div>
+                        <div class="card-handle">@JEBICoffee · 官方</div>
+                    </div>
+                </div>
+                
+                <div class="card-content">
+                    <h3 class="card-title">咖啡数字化生态系统架构</h3>
+                    <div class="card-body">
+                        <p>我们的生态系统由六个核心模块组成，每个模块既独立运行又相互协作：</p>
+                        
+                        <div class="ecosystem-grid">
+                            <!-- 模块1 -->
+                            <div class="module-card module-1">
+                                <div class="module-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4 class="module-title">咖啡豆曲线图IP</h4>
+                                <p class="module-desc">
+                                    烘焙过程的数字化指纹，为生态系统提供基础数据层。每一条曲线都是独特的数字资产。
+                                </p>
+                                <div class="module-tags">
+                                    <span class="module-tag">数据层</span>
+                                    <span class="module-tag">知识产权</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块2 -->
+                            <div class="module-card module-2">
+                                <div class="module-icon">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <h4 class="module-title">曲线图NFT交易平台</h4>
+                                <p class="module-desc">
+                                    数字资产流通市场，实现曲线图的交易、拍卖和授权，连接创造者与使用者。
+                                </p>
+                                <div class="module-tags">
+                                    <span class="module-tag">资产层</span>
+                                    <span class="module-tag">Web3.0</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块3 -->
+                            <div class="module-card module-3">
+                                <div class="module-icon">
+                                    <i class="fas fa-passport"></i>
+                                </div>
+                                <h4 class="module-title">RWA数字护照</h4>
+                                <p class="module-desc">
+                                    虚实结合的价值锚定，将数字曲线绑定实体咖啡，创建可追溯的数字身份。
+                                </p>
+                                <div class="module-tags">
+                                    <span class="module-tag">现实世界资产</span>
+                                    <span class="module-tag">溯源系统</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块4 -->
+                            <div class="module-card module-4">
+                                <div class="module-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <h4 class="module-title">人工智能烘焙机</h4>
+                                <p class="module-desc">
+                                    物理执行和数据采集终端，自动执行曲线图并采集新数据，实现精准烘焙。
+                                </p>
+                                <div class="module-tags">
+                                    <span class="module-tag">设备层</span>
+                                    <span class="module-tag">人工智能</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块5 -->
+                            <div class="module-card module-5">
+                                <div class="module-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h4 class="module-title">烘焙师联盟</h4>
+                                <p class="module-desc">
+                                    创作者社区和治理层，认证曲线图质量，制定行业标准，共享专业知识。
+                                </p>
+                                <div class="module-tags">
+                                    <span class="module-tag">社区层</span>
+                                    <span class="module-tag">治理</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块6 -->
+                            <div class="module-card module-6">
+                                <div class="module-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <h4 class="module-title">咖啡豆烘焙平台</h4>
+                                <p class="module-desc">
+                                    实体商品交易和服务平台，提供生豆采购、烘焙代工和成品豆销售服务。
+                                </p>
+                                <div class="module-tags">
+                                    <span class="module-tag">服务层</span>
+                                    <span class="module-tag">供应链</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <i class="far fa-eye"></i> 2,548
+                    </div>
+                    <div class="stat-item">
+                        <i class="far fa-comment"></i> 86
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-retweet"></i> 42
+                    </div>
+                    <div class="stat-item">
+                        <i class="far fa-heart"></i> 189
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 商业模式详解 -->
+        <section id="business" class="business-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">商业模式详解</h2>
+                    <p class="section-subtitle">
+                        三阶段发展策略，从技术验证到生态扩张的完整路径
+                    </p>
+                </div>
+            </div>
+            
+            <div class="business-timeline">
+                <div class="timeline-track"></div>
+                
+                <!-- 阶段1：验证期 (2025-2026) -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="phase-year">2025-2026</div>
+                        <h3 class="phase-title">阶段一：验证期</h3>
+                        <p class="card-body">建立技术基础，部署AI烘焙机，积累曲线数据，构建烘焙师社区。</p>
+                        <ul class="phase-features">
+                            <li>部署100+台AI烘焙机</li>
+                            <li>积累10,000+条曲线数据</li>
+                            <li>建立500+人烘焙师社区</li>
+                            <li>推出基础SAAS服务</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-marker"></div>
+                    <div style="width: 45%;"></div>
+                </div>
+                
+                <!-- 阶段2：资产化期 (2026-2027) -->
+                <div class="timeline-item">
+                    <div style="width: 45%;"></div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="phase-year">2026-2027</div>
+                        <h3 class="phase-title">阶段二：资产化期</h3>
+                        <p class="card-body">推出NFT交易平台，发行RWA数字护照，建立数字资产标准。</p>
+                        <ul class="phase-features">
+                            <li>月交易额达到$500K</li>
+                            <li>发行10,000+份RWA数字护照</li>
+                            <li>建立行业数据标准</li>
+                            <li>拓展100+合作伙伴</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 阶段3：生态期 (2027-2028) -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="phase-year">2027-2028</div>
+                        <h3 class="phase-title">阶段三：生态期</h3>
+                        <p class="card-body">形成完整生态系统，建立行业标准，拓展全球市场，实现平台自增长。</p>
+                        <ul class="phase-features">
+                            <li>月交易额突破$2M</li>
+                            <li>生态会员超过10,000人</li>
+                            <li>建立全球供应链网络</li>
+                            <li>推出供应链金融服务</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-marker"></div>
+                    <div style="width: 45%;"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Medialink合作部分 -->
+        <section id="medialink" class="medialink-section">
+            <div class="medialink-header">
+                <div class="medialink-logo">
+                    <i class="fas fa-satellite-dish"></i>
+                </div>
+                <div>
+                    <h2 class="medialink-title">Medialink IP共享世界</h2>
+                    <p style="color: var(--x-text-secondary); margin-top: 8px;">香港上市公司 (HK2230) 媒体内容发行及IP运营专家</p>
+                </div>
+            </div>
+            
+            <div class="medialink-grid">
+                <div class="medialink-card">
+                    <h4 class="medialink-card-title">
+                        <i class="fas fa-broadcast-tower"></i>
+                        全球媒体网络
+                    </h4>
+                    <p class="medialink-card-desc">
+                        覆盖全球200+国家与地区的媒体发行网络，可将咖啡数字化故事快速传播至全球观众。
+                    </p>
+                </div>
+                
+                <div class="medialink-card">
+                    <h4 class="medialink-card-title">
+                        <i class="fas fa-crown"></i>
+                        IP运营专家
+                    </h4>
+                    <p class="medialink-card-desc">
+                        拥有多个知名IP的全球运营经验，擅长将技术IP转化为可消费的媒体内容和品牌体验。
+                    </p>
+                </div>
+                
+                <div class="medialink-card">
+                    <h4 class="medialink-card-title">
+                        <i class="fas fa-handshake"></i>
+                        战略协同价值
+                    </h4>
+                    <p class="medialink-card-desc">
+                        结合Medialink的IP运营能力与JEBI的咖啡数字化技术，创造1+1>2的协同效应。
+                    </p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 32px;">
+                <button class="x-button" id="connectMedialinkBtn" style="background: var(--gradient-medialink); padding: 16px 32px;">
+                    <i class="fas fa-share-alt"></i> 连接Medialink IP共享世界
+                </button>
+            </div>
+        </section>
+        
+        <!-- 收入模型 -->
+        <section id="revenue" class="revenue-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">三层收入模型</h2>
+                    <p class="section-subtitle">
+                        多元化收入结构，确保生态系统的可持续发展
+                    </p>
+                </div>
+            </div>
+            
+            <div class="revenue-cards">
+                <!-- 收入卡1 -->
+                <div class="revenue-card">
+                    <div class="revenue-phase">工具收入</div>
+                    <h3 class="card-title">硬件与软件</h3>
+                    <div class="revenue-amount">$1-5M</div>
+                    <p class="card-body">年收入预测 (2025-2026)</p>
+                    <ul class="revenue-features">
+                        <li>AI烘焙机销售与租赁</li>
+                        <li>SAAS软件订阅服务</li>
+                        <li>曲线图数据服务</li>
+                        <li>培训与认证费用</li>
+                    </ul>
+                </div>
+                
+                <!-- 收入卡2 -->
+                <div class="revenue-card">
+                    <div class="revenue-phase">资产收入</div>
+                    <h3 class="card-title">数字资产交易</h3>
+                    <div class="revenue-amount">$5-20M</div>
+                    <p class="card-body">年收入预测 (2026-2027)</p>
+                    <ul class="revenue-features">
+                        <li>NFT铸造与交易手续费</li>
+                        <li>RWA发行服务费</li>
+                        <li>数字护照认证费</li>
+                        <li>版权与授权收入</li>
+                    </ul>
+                </div>
+                
+                <!-- 收入卡3 -->
+                <div class="revenue-card">
+                    <div class="revenue-phase">生态收入</div>
+                    <h3 class="card-title">平台与金融</h3>
+                    <div class="revenue-amount">$20-50M</div>
+                    <p class="card-body">年收入预测 (2027-2028)</p>
+                    <ul class="revenue-features">
+                        <li>平台交易佣金</li>
+                        <li>供应链金融服务</li>
+                        <li>广告与推广收入</li>
+                        <li>数据分析服务</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 联系方式 -->
+        <section id="contact" class="contact-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">联系我们</h2>
+                    <p class="section-subtitle">
+                        加入咖啡数字化革命，共同构建未来
+                    </p>
+                </div>
+            </div>
+            
+            <div class="contact-grid">
+                <!-- WhatsApp -->
+                <div class="contact-card contact-whatsapp">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3 class="contact-method">WhatsApp</h3>
+                    <p class="contact-detail" id="whatsappNumber">+852-93188252</p>
+                    <button class="copy-button" data-copy="+852-93188252">
+                        <i class="fas fa-copy"></i> 复制号码
+                    </button>
+                </div>
+                
+                <!-- 微信 -->
+                <div class="contact-card contact-wechat">
+                    <div class="contact-icon">
+                        <i class="fab fa-weixin"></i>
+                    </div>
+                    <h3 class="contact-method">微信 WeChat</h3>
+                    <p class="contact-detail" id="wechatNumber">+86-15800222338</p>
+                    <button class="copy-button" data-copy="+86-15800222338">
+                        <i class="fas fa-copy"></i> 复制号码
+                    </button>
+                </div>
+                
+                <!-- 邮箱 -->
+                <div class="contact-card contact-email">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="contact-method">电子邮件</h3>
+                    <p class="contact-detail" id="emailAddress">erik.wong@jebi.space</p>
+                    <button class="copy-button" data-copy="erik.wong@jebi.space">
+                        <i class="fas fa-copy"></i> 复制邮箱
+                    </button>
+                </div>
+            </div>
+            
+            <p style="text-align: center; color: var(--x-text-secondary); margin-top: 40px;">
+                <i class="fas fa-clock"></i> 我们将在24小时内回复您的咨询
+            </p>
+        </section>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="x-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">JEBI Coffee Ecosystem</div>
+                    <p style="color: var(--x-text-secondary); margin-bottom: 20px; font-size: 14px;">
+                        重新定义咖啡的数字价值，构建完整的咖啡数字化生态系统。
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="color: var(--x-text); margin-bottom: 20px; font-size: 16px;">产品</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">曲线图IP</a></li>
+                        <li><a href="#">NFT交易平台</a></li>
+                        <li><a href="#">RWA数字护照</a></li>
+                        <li><a href="#">AI烘焙机</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: var(--x-text); margin-bottom: 20px; font-size: 16px;">资源</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">白皮书</a></li>
+                        <li><a href="#">技术文档</a></li>
+                        <li><a href="#">API接口</a></li>
+                        <li><a href="#">常见问题</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: var(--x-text); margin-bottom: 20px; font-size: 16px;">合作伙伴</h4>
+                    <ul class="footer-links">
+                        <li><a href="#medialink">Medialink Group</a></li>
+                        <li><a href="#">咖啡庄园</a></li>
+                        <li><a href="#">设备制造商</a></li>
+                        <li><a href="#">投资机构</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-copyright">
+                © 2025 JEBI Coffee Digital Ecosystem. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 移动端菜单切换
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const xNav = document.getElementById('xNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            xNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = xNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // 导航链接点击
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // 更新活动状态
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                item.classList.add('active');
+                
+                // 关闭移动端菜单
+                xNav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                
+                // 平滑滚动
+                const targetId = item.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 按钮点击事件
+        document.getElementById('contactBtn').addEventListener('click', () => {
+            document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('demoBtn').addEventListener('click', () => {
+            alert('演示视频即将上线，请通过联系方式获取更多信息。');
+        });
+        
+        document.getElementById('joinBtn').addEventListener('click', () => {
+            document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('learnMoreBtn').addEventListener('click', () => {
+            document.querySelector('#ecosystem').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('connectMedialinkBtn').addEventListener('click', () => {
+            document.getElementById('medialinkModal').classList.add('active');
+        });
+        
+        // 复制功能
+        document.querySelectorAll('.copy-button').forEach(button => {
+            button.addEventListener('click', async () => {
+                const textToCopy = button.getAttribute('data-copy');
+                
+                try {
+                    await navigator.clipboard.writeText(textToCopy);
+                    
+                    // 显示复制成功
+                    const originalText = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check"></i> 已复制';
+                    button.style.backgroundColor = 'rgba(0, 186, 124, 0.1)';
+                    button.style.color = 'var(--x-success)';
+                    button.style.borderColor = 'var(--x-success)';
+                    
+                    // 3秒后恢复
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.style.backgroundColor = '';
+                        button.style.color = '';
+                        button.style.borderColor = '';
+                    }, 3000);
+                } catch (err) {
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动复制');
+                }
+            });
+        });
+        
+        // Medialink浮动按钮交互
+        const floatBtn = document.getElementById('floatBtn');
+        const floatBtnMain = document.getElementById('floatBtnMain');
+        const floatTooltip = document.getElementById('floatTooltip');
+        const medialinkModal = document.getElementById('medialinkModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalContactBtn = document.getElementById('modalContactBtn');
+        
+        let tooltipTimeout;
+        
+        // 显示提示框
+        floatBtn.addEventListener('mouseenter', () => {
+            clearTimeout(tooltipTimeout);
+            floatTooltip.classList.add('show');
+        });
+        
+        // 隐藏提示框
+        floatBtn.addEventListener('mouseleave', () => {
+            tooltipTimeout = setTimeout(() => {
+                floatTooltip.classList.remove('show');
+            }, 300);
+        });
+        
+        // 点击浮动按钮打开模态框
+        floatBtnMain.addEventListener('click', () => {
+            medialinkModal.classList.add('active');
+            floatTooltip.classList.remove('show');
+        });
+        
+        // 关闭模态框
+        const closeModal = () => {
+            medialinkModal.classList.remove('active');
+        };
+        
+        modalClose.addEventListener('click', closeModal);
+        modalCloseBtn.addEventListener('click', closeModal);
+        
+        // 点击模态框外部关闭
+        medialinkModal.addEventListener('click', (e) => {
+            if (e.target === medialinkModal) {
+                closeModal();
+            }
+        });
+        
+        // 模态框中的发送合作提案按钮
+        modalContactBtn.addEventListener('click', () => {
+            closeModal();
+            document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                alert('感谢您对与Medialink合作的兴趣！请通过提供的联系方式与我们联系，我们将发送详细的合作提案。');
+            }, 500);
+        });
+        
+        // 创建生态系统可视化
+        function createEcosystemVisualization() {
+            const container = document.getElementById('ecosystemViz');
+            
+            // 清除现有内容
+            container.innerHTML = '';
+            
+            // 创建中心节点
+            const centerNode = document.createElement('div');
+            centerNode.className = 'center-node';
+            centerNode.innerHTML = 'JEBI<br>Ecosystem';
+            container.appendChild(centerNode);
+            
+            // 定义六个节点位置
+            const nodes = [
+                { id: 1, icon: 'fas fa-chart-line', label: '曲线图IP', angle: 0 },
+                { id: 2, icon: 'fas fa-exchange-alt', label: 'NFT平台', angle: 60 },
+                { id: 3, icon: 'fas fa-passport', label: 'RWA护照', angle: 120 },
+                { id: 4, icon: 'fas fa-robot', label: 'AI烘焙机', angle: 180 },
+                { id: 5, icon: 'fas fa-users', label: '烘焙师联盟', angle: 240 },
+                { id: 6, icon: 'fas fa-shopping-cart', label: '烘焙平台', angle: 300 }
+            ];
+            
+            const centerX = 200;
+            const centerY = 200;
+            const radius = 150;
+            
+            // 创建连接线
+            nodes.forEach(node => {
+                const angle = (node.angle * Math.PI) / 180;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                
+                // 连接线
+                const connection = document.createElement('div');
+                connection.className = 'node-connection';
+                
+                const length = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+                const rotation = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
+                
+                connection.style.width = `${length}px`;
+                connection.style.left = `${centerX}px`;
+                connection.style.top = `${centerY}px`;
+                connection.style.transform = `rotate(${rotation}deg)`;
+                
+                container.appendChild(connection);
+            });
+            
+            // 创建节点
+            nodes.forEach(node => {
+                const angle = (node.angle * Math.PI) / 180;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                
+                const nodeElement = document.createElement('div');
+                nodeElement.className = 'viz-node';
+                nodeElement.style.left = `${x - 40}px`;
+                nodeElement.style.top = `${y - 40}px`;
+                nodeElement.innerHTML = `
+                    <div class="node-icon"><i class="${node.icon}"></i></div>
+                    <div class="node-label">${node.label}</div>
+                `;
+                
+                nodeElement.addEventListener('click', () => {
+                    alert(`点击了: ${node.label}\n\n了解更多信息，请通过联系方式获取详细资料。`);
+                });
+                
+                container.appendChild(nodeElement);
+            });
+        }
+        
+        // 页面滚动时更新导航栏
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 100) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${currentSection}`) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // 滚动到顶部时激活首页
+            if (window.scrollY < 100) {
+                navItems.forEach(item => item.classList.remove('active'));
+                document.querySelector('.nav-item[href="#home"]').classList.add('active');
+            }
+            
+            // 控制浮动按钮提示框的显示
+            if (window.scrollY > 300) {
+                floatTooltip.classList.remove('show');
+            }
+        });
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            createEcosystemVisualization();
+            
+            // 卡片互动效果
+            document.querySelectorAll('.x-card, .module-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('button')) {
+                        card.style.transform = 'translateY(-4px)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 300);
+                    }
+                });
+            });
+            
+            // 统计项点击效果
+            document.querySelectorAll('.stat-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const icon = item.querySelector('i');
+                    const text = item.textContent.trim();
+                    const count = parseInt(text.replace(/\D/g, '')) || 0;
+                    
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        item.innerHTML = `<i class="${icon.className}"></i> ${count + 1}`;
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        item.innerHTML = `<i class="${icon.className}"></i> ${Math.max(0, count - 1)}`;
+                    }
+                });
+            });
+        });
+        
+        // 点击页面任意位置关闭移动端菜单
+        document.addEventListener('click', (e) => {
+            if (!xNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                xNav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        // 页面加载动画
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
